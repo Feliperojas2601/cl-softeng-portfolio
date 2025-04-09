@@ -3,7 +3,8 @@
 import { Component } from "@angular/core";
 
 @Component({
-    templateUrl: './counterPage.component.html'
+    templateUrl: './counterPage.component.html',  // Ruta del archivo HTML que se usará en el componente
+    styleUrls: ['./counterPage.component.css'] 
 })
 export class CounterPageComponent {
 
