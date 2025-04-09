@@ -1,0 +1,14 @@
+#nav-bar {
+  position: fixed;
+}
+
+@media(max-width:500px){
+  #nav-bar{
+    display: hidden;
+  }
+}
+
+header {
+  width: 100%;
+  display: flex;
+}

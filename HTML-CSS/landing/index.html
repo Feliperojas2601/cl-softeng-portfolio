@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header id="header">
+      <img id="header-img" src="https://www.tailorbrands.com/wp-content/uploads/2020/07/mcdonalds-logo.jpg">
+      <nav id="nav-bar">
+        <ul>
+          <li><a class="nav-link" href="#a">INFO</a></li>
+          <li><a class="nav-link" href="#b">HTML</a></li>
+          <li><a class="nav-link" href="#c">CSS</a></li>
+        </ul>
+      </nav>
+    </header>
+    <form id="form" method="post" action="https://www.freecodecamp.com/email-submit">
+      <section role="region" aria-labelledby="a">
+        <h2 id="a">INFO</h2>
+        <div class="info">
+            <label for="student-email">Email:</label>
+            <input type="email" name="email" id="email" placeholder="a@gmail.com"/>
+            <input type="submit" id="submit"/>
+          </div>
+      </section>
+      <section role="region" aria-labelledby="b">
+        <h2 id="b">HTML</h2>
+        <iframe width="420" height="315"
+src="https://www.youtube.com/embed/tgbNymZ7vqY">
+</iframe>
+      </section>
+      <section role="region" aria-labelledby="c">
+        <h2 id="c">CSS</h2>
+        <iframe width="420" height="315" id="video"
+src="https://www.youtube.com/embed/tgbNymZ7vqY">
+</iframe>
+      </section>
+    </form>
+  </body>
+</html>

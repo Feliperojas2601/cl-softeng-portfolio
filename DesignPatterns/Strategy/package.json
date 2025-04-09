@@ -1,0 +1,16 @@
+{
+  "name": "strategy",
+  "version": "1.0.0",
+  "description": "The Strategy Pattern defines a family of algorithms/behaviors, encapsulates each one, and makes them interchangeable. This pattern lets the algorithm vary independently from clients that use it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}

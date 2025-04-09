@@ -1,0 +1,11 @@
+Strategy/node_modules/
+Observer/node_modules/
+Decorator/node_modules/
+Singleton/node_modules/
+Command/node_modules/
+Adapter/node_modules/
+Facade/node_modules/
+Template/node_modules/
+Iterator/node_modules/
+Composite/node_modules/
+State/node_modules/

@@ -1,0 +1,22 @@
+import { Waitress } from './Client/Waitress';
+import { Menu } from './Composite/Menu';
+
+const pancakeMenu = new Menu('PANCAKE HOUSE MENU', 'Breakfast');
+const dinerMenu = new Menu('DINER MENU', 'Lunch');
+const cafeMenu = new Menu('CAFE MENU', 'Dinner');
+const dessertMenu = new Menu('DESSERT MENU', 'Dessert of course!');
+const allMenus = new Menu('ALL MENUS', 'All menus combined');
+allMenus.add(pancakeMenu);
+allMenus.add(dinerMenu);
+allMenus.add(cafeMenu);
+dinerMenu.add(new Menu('PASTA', 'Spaghetti with Marinara Sauce'));
+dinerMenu.add(dessertMenu);
+dessertMenu.add(new Menu('APPLE PIE', 'Apple pie with a flakey crust'));
+dessertMenu.add(new Menu('CHEESECAKE', 'Creamy New York cheesecake'));
+cafeMenu.add(new Menu('VEGGIE BURGER AND AIR FRIES', 'Veggie burger on a whole wheat bun, lettuce, tomato, and fries'));
+cafeMenu.add(new Menu('SOUP OF THE DAY', 'A cup of the soup of the day, with a side salad'));
+cafeMenu.add(new Menu('BURRITO', 'A large burrito, with whole pinto beans, salsa, guacamole'));
+pancakeMenu.add(new Menu('BLUEBERRY PANCAKES', 'Pancakes made with fresh blueberries'));
+pancakeMenu.add(new Menu('WAFLES', 'Waffles, with your choice of blueberries or strawberries'));
+const waitress = new Waitress(allMenus);
+waitress.printMenu();

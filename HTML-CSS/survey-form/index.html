@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1 id="title">My survey - Felipe Rojas</h1>
+    <p id="description">This is my survey. No CSS.</p>
+    <form id="survey-form">
+      <fieldset>
+        <label id="name-label" for="name">Enter Your Name: <input id="name" name="name" type="text" required placeholder="Name..."/></label>
+        <label id="email-label"  for="email">Enter Your Email: <input id="email" name="email" type="email" required placeholder="Email..."/></label>
+        <label id="number-label"  for="number">Input your number: <input id="number" type="number" name="age" placeholder="Age..." min="1" max="2"/></label>
+      </fieldset>
+      <fieldset>
+        <select id="dropdown" name="dropdown">
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+        <label for="radio-1">
+          <input id="radio-1"  type="radio" name="radio" checked value="radio-1"/> 1     
+        </label>
+        <label for="radio-2">
+          <input id="radio-2" type="radio" name="radio" value="radio-2"/> 2
+        </label>
+        <input id="checkbox-1" type="checkbox"name="checkbox-1" required value="checkbox-1"/>
+        <input id="checkbox-2" type="checkbox"name="checkbox-2" required value="checkbox-2"/>
+        <input id="checkbox-3" type="checkbox"name="checkbox-3" required value="checkbox-3"/>
+      </fieldset>
+      <fieldset>
+        <label for="bio">Provide a bio:
+          <textarea id="bio" name="bio" rows="3" cols="30" placeholder="I like coding on the beach..."></textarea>
+        </label>
+      </fieldset>
+      <input id="submit" type="submit" value="Submit" />
+    </form>
+  </body>
+</html>

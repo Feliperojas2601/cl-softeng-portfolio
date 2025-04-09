@@ -1,0 +1,16 @@
+{
+  "name": "facade",
+  "version": "1.0.0",
+  "description": "The Facade Pattern is a structural design pattern that provides a simplified interface to a larger body of code, such as a complex subsystem. It hides the complexities of the system and provides a unified interface to the client, making the subsystem easier to use.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
