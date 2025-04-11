@@ -1,0 +1,33 @@
+<h1>Dragonball Page</h1>
+<hr>
+<section class="row">
+    <div class="col-12 col-sm-6">
+        <h3>Agregar Personaje:</h3>
+        <input type="text" class="form-control" placeholder="Nombre">
+        <input type="text" class="form-control mt-2" placeholder="Poder">
+        <button class="mt-2 btn btn-primary">Agregar</button>
+    </div>
+    <div class="col-12 col-sm-6">
+        <h3>Listado</h3>
+        <ul>
+            <!-- @for (character of characters(); track character.id), directiva estructural del controlFlow de angular, reemplaza el ngFor -->
+            @for (character of characters(); track character.id; let i = $index) {
+                <!-- @if (character.power > 500), directiva condicional de angular, reemplaza el ngIf -->
+                @if (character.power > 500) {
+                    <li>
+                        <span>{{ i + 1 }} - {{ character.name }}</span>
+                        <!-- [class.text-danger]="character.power >= 9000" directiva de angular para aplicar una clase condicional -->
+                        <strong [class.text-danger]="character.power >= 9000" [class.text-info]="character.power < 9000"> ({{ character.power }})</strong>
+                        <strong [ngClass]="powerClasses()"> ({{ character.power }})</strong>
+                    </li>
+                } @else {
+                    <li>
+                        <span> No sos nadie Yamcha </span>
+                    </li>
+                }
+            } @empty {
+                <li>No hay personajes</li>
+            }
+        </ul>
+    </div>
+</section>
