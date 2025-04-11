@@ -1,0 +1,8 @@
+<nav>
+    <a [routerLink]="['/']" [routerLinkActive]="'active'" 
+        [routerLinkActiveOptions]="{ exact: true }" 
+    >Contador</a> <!-- [routerLinkActive] es una directiva en angular para enlaces de navegación que se activa cuando el enlace está activo, el [] es para señales -->
+    <!-- exact: true para que el enlace sea exacto -->
+    <a [routerLink]="['/hero']" [routerLinkActive]="'active'">Heroes</a> <!-- [routerLink] es una directiva en angular para enlaces de navegación, el [] es para enlaces dinámicos -->
+    <a [routerLink]="['/dragonball']" [routerLinkActive]="'active'">Dragonball</a>
+</nav>
