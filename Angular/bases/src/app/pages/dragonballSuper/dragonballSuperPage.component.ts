@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
-import { Character } from '../../interfaces/character.interface';
+import { Component, inject } from '@angular/core';
 import { DragonballCharacterAddComponent } from '../../components/dragonball/character-add/character-add.component';
+import { Character } from '../../interfaces/character.interface';
 import { DragonballCharacterListComponent } from '../../components/dragonball/character-list/character-list.component';
+import { DragonballService } from '../../services/dragonball.service';
 @Component({
   selector: 'app-dragonball-super',
   templateUrl: './dragonballSuperPage.component.html',
@@ -9,22 +10,17 @@ import { DragonballCharacterListComponent } from '../../components/dragonball/ch
   imports: [DragonballCharacterAddComponent, DragonballCharacterListComponent]
 })
 export class DragonballSuperComponent {
-    // Inicializamos señal de estado ([])
-    characters = signal<Character[]>([
-        {
-            id: 1,
-            name: 'Goku',
-            power: 10000
-        },
-        {
-            id: 2,
-            name: 'Vegeta',
-            power: 9000
-        },
-    ]);
+    // DI tradicional
+    /*constructor(private dragonballService: DragonballService){}
 
     onNewCharacter(character: Character) {
-        // update actualizacion de señal con el valor antiguo de la señal 
-        this.characters.update(characters => [...characters, character]);
+        this.dragonballService.onNewCharacter(character);
+    }*/
+
+    // DI con inject - recomendada ahora
+    dragonballService = inject(DragonballService);
+    characters = this.dragonballService.characters;
+    onNewCharacter(character: Character) {
+        this.dragonballService.onNewCharacter(character);
     }
 }
