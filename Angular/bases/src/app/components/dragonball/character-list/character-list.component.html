@@ -1,0 +1,20 @@
+<h3>{{ listName() }}</h3>
+<ul>
+    <!-- @for (character of characters(); track character.id), directiva estructural del controlFlow de angular, reemplaza el ngFor -->
+    @for (character of characters(); track character.id; let i = $index) {
+        <!-- @if (character.power > 500), directiva condicional de angular, reemplaza el ngIf -->
+        @if (character.power > 500 || character.name !== 'Yamcha') {
+            <li>
+                <span>{{ i + 1 }} - {{ character.name }}</span>
+                <!-- [class.text-danger]="character.power >= 9000" directiva de angular para aplicar una clase condicional -->
+                <strong [class.text-danger]="character.power >= 9000" [class.text-info]="character.power < 9000"> ({{ character.power }})</strong>
+            </li>
+        } @else {
+            <li>
+                <span>No sos nadie Yamcha</span>
+            </li>
+        }
+    } @empty {
+        <li>No hay personajes</li>
+    }
+</ul>

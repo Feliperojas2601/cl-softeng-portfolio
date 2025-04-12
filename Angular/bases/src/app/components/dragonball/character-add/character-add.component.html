@@ -1,0 +1,22 @@
+<h3>Agregar Personaje: {{ name() }} - {{ power() }}</h3>
+<input type="text" 
+    class="form-control" 
+    placeholder="Nombre" 
+    [value]="name()"
+    (change)="name.set(txtName.value)"
+    (input)="name.set(txtName.value)"
+    #txtName    
+    >
+<!-- value hace el bind con la señal, el change cambia el valor de la señal al hacer enter, si quiero cambio con cualquier tecla presionada, uso input -->
+<!-- El #txtName es una referencia local, tipo string -->
+<input type="text" 
+    class="form-control mt-2" 
+    placeholder="Poder" 
+    [value]="power()" 
+    (change)="power.set(+txtPower.value)"
+    (input)="power.set(+txtPower.value)"
+    #txtPower
+>
+<!-- El #txtPower es una referencia local, tipo string, lo transforma en un string el +-->
+
+<button class="mt-2 btn btn-primary" (click)="addCharacter()">Agregar</button>
