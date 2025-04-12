@@ -2,7 +2,10 @@
 <hr>
 <section class="row">
     <div class="col-12 col-sm-6">
-        <dragonball-character-add></dragonball-character-add>
+        <dragonball-character-add
+            (newCharacter)="onNewCharacter($event)"
+        ></dragonball-character-add>
+        <!-- $event es el evento que se produce en el componente hijo -->
     </div>
 
     <div class="col-12 col-sm-6">

@@ -22,4 +22,9 @@ export class DragonballSuperComponent {
             power: 9000
         },
     ]);
+
+    onNewCharacter(character: Character) {
+        // update actualizacion de señal con el valor antiguo de la señal 
+        this.characters.update(characters => [...characters, character]);
+    }
 }
