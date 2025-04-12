@@ -26,4 +26,7 @@ export class DragonballService {
         // update actualizacion de señal con el valor antiguo de la señal 
         this.characters.update(characters => [...characters, character]);
     }
+
+    // Despliegue: ng build 
+    // Construye en modo de producción, llevar la carpeta dist a un servidor
 }
