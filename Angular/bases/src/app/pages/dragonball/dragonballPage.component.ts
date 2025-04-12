@@ -14,6 +14,9 @@ interface Character {
   styleUrl: './dragonballPage.component.css'
 })
 export class DragonballComponent {
+    // Formulario simple con señales 
+    name = signal('Gohan');
+    power = signal(0);
     // Inicializamos señal de estado ([])
     characters = signal<Character[]>([
         {
@@ -49,4 +52,20 @@ export class DragonballComponent {
             'text-warning': true,
         }
     });
+
+    addCharacter() {
+        if (!this.name() || !this.power() || this.power() < 0) return;
+        const newCharacter: Character = {
+            id: this.characters().length + 1,
+            name: this.name(),
+            power: this.power()
+        }
+        this.characters.update(characters => [...characters, newCharacter]);
+        this.reset();
+    }
+
+    reset() {
+        this.name.set('');
+        this.power.set(0);
+    }
 }
