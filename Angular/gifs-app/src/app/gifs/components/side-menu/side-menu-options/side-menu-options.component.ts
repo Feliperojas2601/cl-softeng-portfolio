@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { GifsService } from '../../../services/gifs.service';
 interface MenuOption {
     label: string;
     subLabel: string;
@@ -27,5 +28,8 @@ export class SideMenuOptionsComponent {
             route: '/dashboard/search',
             icon: 'fa-solid fa-magnifying-glass'
         }
-     ]
+     ]; 
+
+    gifsService = inject(GifsService);
+    searchHistoryKeys = this.gifsService.searchHistoryKeys;
 }
