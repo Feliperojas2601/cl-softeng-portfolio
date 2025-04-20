@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Location } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -6,4 +7,10 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './notFound.component.html',
 })
-export class NotFoundComponent {}
+export class NotFoundComponent {
+    // Location para navegar hacia atrás en el historial de navegación
+    location = inject(Location);
+    goBack() {
+        this.location.back();
+    }
+}
