@@ -1,3 +1,7 @@
 @if (countryByCodeResource.error()) {
    <app-not-found></app-not-found>
-} 
+} @else if (countryByCodeResource.isLoading()) {
+    <span class="loading loading-spinner loading-lg"></span>
+} @else if (countryByCodeResource.hasValue()) {
+    <app-country-information [country]="countryByCodeResource.value()!"></app-country-information>
+}

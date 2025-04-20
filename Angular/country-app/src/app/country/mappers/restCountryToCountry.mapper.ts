@@ -13,5 +13,7 @@ export const restCountryToCountry = (restCountry: RestCountry): Country => {
         name: restCountry.name.common,
         capital: restCountry.capital.join(', '),
         population: restCountry.population,
+        region: restCountry.region,
+        subRegion: restCountry.subregion,
     }
 }
