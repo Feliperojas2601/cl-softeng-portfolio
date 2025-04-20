@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RestCountry } from '../interfaces/restCountry.interface';
-import { catchError, delay, map, throwError } from 'rxjs';
+import { catchError, delay, map, Observable, throwError } from 'rxjs';
 import { restCountryArrayToCountryArray } from '../mappers/restCountryToCountry.mapper';
+import { Country } from '../interfaces/country.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -18,7 +19,7 @@ export class CountryService {
             // Atrapa los errores y devuelve un observable de error, podemos usar el of o el throwError
             // catchError(error => of(error))
             // Excepciones del lado del service
-            catchError(error => throwError(() => 'No se encontraron resultados o hubo un error en la búsqueda'))
+            catchError(error => throwError(() => 'No results found or error in search'))
         );
     }
 
@@ -28,7 +29,15 @@ export class CountryService {
             map(restCountries => restCountryArrayToCountryArray(restCountries)),
             // Ralentizar la respuesta
             delay(1500),
-            catchError(error => throwError(() => 'No se encontraron resultados o hubo un error en la búsqueda'))
+            catchError(error => throwError(() => 'No results found or error in search'))
+        );
+    }
+
+    searchCountryByCode(code: string): Observable<Country | undefined> {
+        return this.http.get<RestCountry[]>(`${this.baseUrl}/alpha/${code}`).pipe(
+            map(restCountries => restCountryArrayToCountryArray(restCountries)),
+            map(countries => countries[0]),
+            catchError(error => throwError(() => 'Country not found or error in search'))
         );
     }
 }
