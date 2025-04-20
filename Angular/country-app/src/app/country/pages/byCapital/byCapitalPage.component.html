@@ -1,2 +1,2 @@
-<app-search-input placeholder="capital"></app-search-input> 
-<country-list></country-list>
+<app-search-input placeholder="capital" (searchOutput)="searchByCapital($event)"></app-search-input> 
+<country-list [countries]="countries()"></country-list>
