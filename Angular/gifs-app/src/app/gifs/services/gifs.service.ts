@@ -14,7 +14,8 @@ export class GifsService {
     private readonly giphyApiUrl = environment.giphyApiUrl;
 
     trendingGifs = signal<Gif[]>([]);
-    trendingGifsLoading = signal<boolean>(true);
+    trendingPage = signal<number>(0);
+    trendingGifsLoading = signal<boolean>(false);
     searchGifsLoading = signal<boolean>(true);
 
     // Señal computada que retorna un array de arrays de gifs, cada subarray tiene 3 gifs
@@ -40,16 +41,19 @@ export class GifsService {
 
     // Retorna un observable, que es un objeto que emite eventos y podemos estar suscritos a estos eventos
     loadTrendingGifs(): void {
+        if (this.trendingGifsLoading()) return;
         this.trendingGifsLoading.set(true);
         const url = `${this.giphyApiUrl}/gifs/trending`;
         this.http.get<GiphyResponse>(url, {
             params: {
                 api_key: this.giphyApiKey,
                 limit: 20,
+                offset: this.trendingPage() * 20
             }
         // subscribe es para suscribirse a los eventos del observable, la petición se ejecuta cuando se suscribe
         }).subscribe((response) => {
-            this.trendingGifs.set(mapGiphyToGifArray(response.data));
+            this.trendingGifs.update((prev) => [...prev, ...mapGiphyToGifArray(response.data)]);
+            this.trendingPage.update((prev) => prev + 1);
             this.trendingGifsLoading.set(false);
         });
     }

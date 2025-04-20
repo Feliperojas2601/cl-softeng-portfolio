@@ -1,4 +1,8 @@
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-5">
+<!-- scroll event, height definido para que se salgan elementos del div y el overflow-y-scroll para que se pueda hacer scroll vertical -->
+<div class="h-screen overflow-y-scroll grid grid-cols-2 md:grid-cols-4 gap-4 py-5"
+    (scroll)="onScroll($event)" 
+    #groupDiv
+>
     @for (group of trendingGifGroup(); track $index) {
         <div class="grid gap-4">
             @for (gif of group; track $index) {
