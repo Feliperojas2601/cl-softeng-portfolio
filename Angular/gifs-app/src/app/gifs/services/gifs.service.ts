@@ -4,7 +4,7 @@ import { GiphyResponse } from '../interfaces/giphy.interface';
 import { environment } from '@environments/environment';
 import { Gif } from '../interfaces/gif.interface';
 import { mapGiphyToGifArray } from '../mappers/gif.mapper';
-import { Observable, finalize, map, tap } from 'rxjs';
+import { Observable, finalize, forkJoin, map, tap } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
@@ -16,6 +16,15 @@ export class GifsService {
     trendingGifs = signal<Gif[]>([]);
     trendingGifsLoading = signal<boolean>(true);
     searchGifsLoading = signal<boolean>(true);
+
+    // Señal computada que retorna un array de arrays de gifs, cada subarray tiene 3 gifs
+    trendingGifGroup = computed<Gif[][]>(() => {
+        const groups: Gif[][] = [];
+        for (let i = 0; i < this.trendingGifs().length; i += 3) {
+            groups.push(this.trendingGifs().slice(i, i + 3));
+        }
+        return groups;
+    });
 
     loadFromLocalStorage = (): Record<string, Gif[]> => {
         const history = localStorage.getItem('searchHistory');

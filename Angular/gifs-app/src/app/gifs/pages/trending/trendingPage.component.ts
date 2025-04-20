@@ -11,4 +11,5 @@ export class TrendingPageComponent {
     gifsService = inject(GifsService);
     trendingGifs = this.gifsService.trendingGifs;
     trendingGifsLoading = this.gifsService.trendingGifsLoading;
+    trendingGifGroup = this.gifsService.trendingGifGroup;
 }
