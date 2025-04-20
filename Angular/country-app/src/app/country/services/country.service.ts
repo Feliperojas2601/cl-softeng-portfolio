@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RestCountry } from '../interfaces/restCountry.interface';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, delay, map, throwError } from 'rxjs';
 import { restCountryArrayToCountryArray } from '../mappers/restCountryToCountry.mapper';
 
 @Injectable({
@@ -26,6 +26,8 @@ export class CountryService {
         term = term.trim().toLowerCase();
         return this.http.get<RestCountry[]>(`${this.baseUrl}/name/${term}`).pipe(
             map(restCountries => restCountryArrayToCountryArray(restCountries)),
+            // Ralentizar la respuesta
+            delay(1500),
             catchError(error => throwError(() => 'No se encontraron resultados o hubo un error en la búsqueda'))
         );
     }

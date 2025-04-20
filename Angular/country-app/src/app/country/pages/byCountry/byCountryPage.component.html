@@ -1,15 +1,6 @@
 <app-search-input placeholder="country" (searchOutput)="term.set($event)"></app-search-input> 
-@if (countryByCountryResource.isLoading()) {
-    <div class="flex justify-center items-center h-screen">
-        <span class="loading loading-spinner loading-lg"></span>
-        <span class="text-xl">Buscando...</span>    
-    </div>
-} @else if (countryByCountryResource.error()) {
-    <div class="flex justify-center items-center h-screen">
-        <span class="text-red-500">{{countryByCountryResource.error()}}</span>
-    </div>
-} @else if (countryByCountryResource.hasValue()) {
-    <country-list [countries]="countryByCountryResource.value()!"></country-list>
-} @else {
-    <span>No hay resultados</span>
-}
+<country-list [countries]="countryByCountryResource.value()!"
+    [errorMessage]="countryByCountryResource.error()"
+    [isLoading]="countryByCountryResource.isLoading()"
+    [isEmpty]="countryByCountryResource.value()?.length === 0"
+></country-list>
