@@ -2,14 +2,7 @@ import { RestCountry } from "../interfaces/restCountry.interface";
 import { Country } from "../interfaces/country.interface";
 
 export const restCountryArrayToCountryArray = (restCountry: RestCountry[]): Country[] => {
-    return restCountry.map(country => ({
-        cca2: country.cca2,
-        flag: country.flag,
-        flagSvg: country.flags.svg,
-        name: country.name.common,
-        capital: country.capital.join(', '),
-        population: country.population,
-    }));
+    return restCountry.map(restCountryToCountry);
 }
 
 export const restCountryToCountry = (restCountry: RestCountry): Country => {
