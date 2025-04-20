@@ -2,7 +2,8 @@ import { Component, inject, signal, resource } from '@angular/core';
 import { SearchInputComponent } from '../../../shared/components/searchInput/searchInput.component';
 import { CountryListComponent } from '../../components/countryList/countryList.component';
 import { CountryService } from '../../services/country.service';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
+import { rxResource } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-by-capital-page',
   imports: [SearchInputComponent, CountryListComponent],
@@ -42,6 +43,7 @@ export class ByCapitalPageComponent {
         );
     }*/
 
+    /*
     // Manejo con resources
     public term = signal('');
 
@@ -55,4 +57,17 @@ export class ByCapitalPageComponent {
             return await firstValueFrom(this.countryService.searchByCapital(request.term));
         }
     });
+    */ 
+
+    // Manejo con rxResouces -> Estos sí trabajan con el observable
+    public term = signal('');
+
+    public countryByCapitalResource = rxResource({
+        request: () => ({ term: this.term() }),
+        loader: ({ request }) => {
+            // Devolvemos un observable de un array vacío si no hay término
+            if (!request.term) return of([]); 
+            return this.countryService.searchByCapital(request.term);
+        }
+    });   
 }
