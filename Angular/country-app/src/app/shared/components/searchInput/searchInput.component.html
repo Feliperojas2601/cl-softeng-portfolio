@@ -1,0 +1,13 @@
+<section class="flex flex-row gap-2 mt-2">
+    <input type="text" 
+     class="input input-bordered w-56 mr-2"
+     placeholder="Search by {{placeholder()}}" 
+     autofocus
+     #txtSearch
+     (keyup.enter)="search(txtSearch.value)"
+     />
+    <button 
+    class="btn btn-secondary"
+    (click)="search(txtSearch.value)"
+    >Search</button>
+</section>
