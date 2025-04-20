@@ -22,9 +22,12 @@
                     <td>{{country.name}}</td>
                     <td>{{country.capital}}</td>
                     <td>
+                        <!-- Pipe de number viene de DecimalPipe -->
                         <span class="badge badge-secondary badge-outline">{{country.population | number}}</span>
                     </td>
-                    <td><a class="link-secondary cursor-pointer">More info</a></td>
+                    <td><a
+                        [routerLink]="['/country/by/', country.cca2]"
+                        class="link-secondary cursor-pointer">More info</a></td>
                 </tr>
             }
         </tbody>

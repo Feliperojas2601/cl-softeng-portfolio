@@ -1,2 +1,32 @@
-<app-search-input placeholder="capital" (searchOutput)="searchByCapital($event)"></app-search-input> 
-<country-list [countries]="countries()"></country-list>
+<!-- Manejo con emición de evento ligado a la función searchByCapital -->
+<!-- <app-search-input placeholder="capital" (searchOutput)="searchByCapital($event)"></app-search-input>  -->
+<!-- Manejo con signal query ligada a un resource -->
+<app-search-input placeholder="capital" (searchOutput)="term.set($event)"></app-search-input> 
+<!-- Manejo de tabla con signals para el resultado, el loading y el error -->
+<!-- @if (isLoading()) {
+    <div class="flex justify-center items-center h-screen">
+        <span class="loading loading-spinner loading-lg"></span>
+    </div>
+} @else if (isError()) {
+    <div class="flex justify-center items-center h-screen">
+        <span class="text-red-500">{{isError()}}</span>
+    </div>
+} @else {
+    <country-list [countries]="countries()"></country-list>
+} -->
+
+<!-- Manejo con resources -->
+@if (countryByCapitalResource.isLoading()) {
+    <div class="flex justify-center items-center h-screen">
+        <span class="loading loading-spinner loading-lg"></span>
+        <span class="text-xl">Buscando...</span>    
+    </div>
+} @else if (countryByCapitalResource.error()) {
+    <div class="flex justify-center items-center h-screen">
+        <span class="text-red-500">{{countryByCapitalResource.error()}}</span>
+    </div>
+} @else if (countryByCapitalResource.hasValue()) {
+    <country-list [countries]="countryByCapitalResource.value()!"></country-list>
+} @else {
+    <span>No hay resultados</span>
+}

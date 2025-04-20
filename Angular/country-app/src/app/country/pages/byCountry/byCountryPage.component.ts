@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
 import { SearchInputComponent } from '../../../shared/components/searchInput/searchInput.component';
 import { CountryListComponent } from '../../components/countryList/countryList.component';
+import { CountryService } from '../../services/country.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-by-country-page',
@@ -8,4 +10,16 @@ import { CountryListComponent } from '../../components/countryList/countryList.c
   templateUrl: './byCountryPage.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ByCountryPageComponent { }
+export class ByCountryPageComponent {
+    private readonly countryService = inject(CountryService);
+
+    public term = signal('');
+
+    public countryByCountryResource = resource({
+        request: () => ({ term: this.term() }),
+        loader: async({ request }) => {
+            if (!request.term) return [];
+            return await firstValueFrom(this.countryService.searchByCountry(request.term));
+        }
+    }); 
+}

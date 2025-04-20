@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RestCountry } from '../interfaces/restCountry.interface';
-import { map } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 import { restCountryArrayToCountryArray } from '../mappers/restCountryToCountry.mapper';
 
 @Injectable({
@@ -14,7 +14,19 @@ export class CountryService {
     searchByCapital(term: string) {
         term = term.trim().toLowerCase();
         return this.http.get<RestCountry[]>(`${this.baseUrl}/capital/${term}`).pipe(
-            map(restCountries => restCountryArrayToCountryArray(restCountries))
+            map(restCountries => restCountryArrayToCountryArray(restCountries)),
+            // Atrapa los errores y devuelve un observable de error, podemos usar el of o el throwError
+            // catchError(error => of(error))
+            // Excepciones del lado del service
+            catchError(error => throwError(() => 'No se encontraron resultados o hubo un error en la búsqueda'))
+        );
+    }
+
+    searchByCountry(term: string) {
+        term = term.trim().toLowerCase();
+        return this.http.get<RestCountry[]>(`${this.baseUrl}/name/${term}`).pipe(
+            map(restCountries => restCountryArrayToCountryArray(restCountries)),
+            catchError(error => throwError(() => 'No se encontraron resultados o hubo un error en la búsqueda'))
         );
     }
 }
