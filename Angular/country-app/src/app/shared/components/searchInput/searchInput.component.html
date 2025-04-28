@@ -4,10 +4,11 @@
      placeholder="Search by {{placeholder()}}" 
      autofocus
      #txtSearch
-     (keyup.enter)="search(txtSearch.value)"
+     (keyup.enter)="searchOutput.emit(inputValue())"
+     (keyup)="inputValue.set(txtSearch.value)"
      />
     <button 
     class="btn btn-primary"
-    (click)="search(txtSearch.value)"
+    (click)="searchOutput.emit(inputValue())"
     >Search</button>
 </section>
