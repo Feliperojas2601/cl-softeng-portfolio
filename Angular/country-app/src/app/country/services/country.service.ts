@@ -4,7 +4,7 @@ import { RestCountry } from '../interfaces/restCountry.interface';
 import { catchError, delay, map, Observable, of, tap, throwError } from 'rxjs';
 import { restCountryArrayToCountryArray } from '../mappers/restCountryToCountry.mapper';
 import { Country } from '../interfaces/country.interface';
-
+import { Region } from '../interfaces/region.interface';
 @Injectable({
     providedIn: 'root'
 })
@@ -15,7 +15,8 @@ export class CountryService {
     // Almacenamiento en prop, no tenemos que pensar en una seña, no está relacionado con un cambio en el DOM
     private readonly termCacheByCapital = new Map<string, Country[]>();
     private readonly termCacheByCountry = new Map<string, Country[]>();
-
+    private readonly termCacheByRegion = new Map<string, Country[]>();
+    
     searchByCapital(term: string) {
         term = term.trim().toLowerCase();
         if(this.termCacheByCapital.has(term)) {
@@ -56,6 +57,18 @@ export class CountryService {
             map(restCountries => restCountryArrayToCountryArray(restCountries)),
             map(countries => countries[0]),
             catchError(error => throwError(() => 'Country not found or error in search'))
+        );
+    }
+
+    searchCountryByRegion(region: Region): Observable<Country[]> {
+        if(this.termCacheByRegion.has(region)) {
+            console.log('Retornando del cache la respuesta by region: ', region);
+            return of(this.termCacheByRegion.get(region)!);
+        }
+        return this.http.get<RestCountry[]>(`${this.baseUrl}/region/${region}`).pipe(
+            map(restCountries => restCountryArrayToCountryArray(restCountries)),
+            tap(countries => this.termCacheByRegion.set(region, countries)),
+            catchError(error => throwError(() => 'Region not found or error in search'))
         );
     }
 }

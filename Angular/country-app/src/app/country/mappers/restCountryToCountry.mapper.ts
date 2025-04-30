@@ -11,7 +11,7 @@ export const restCountryToCountry = (restCountry: RestCountry): Country => {
         flag: restCountry.flag,
         flagSvg: restCountry.flags.svg,
         name: restCountry.name.common,
-        capital: restCountry.capital.join(', '),
+        capital: restCountry.capital?.join(', '),
         population: restCountry.population,
         region: restCountry.region,
         subRegion: restCountry.subregion,
