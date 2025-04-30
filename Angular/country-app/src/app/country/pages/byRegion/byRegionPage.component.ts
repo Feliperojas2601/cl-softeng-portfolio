@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-by-region-page',
-  imports: [SearchInputComponent, CountryListComponent],
+  imports: [CountryListComponent],
   templateUrl: './byRegionPage.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
