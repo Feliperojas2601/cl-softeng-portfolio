@@ -6,6 +6,7 @@
      #txtSearch
      (keyup.enter)="searchOutput.emit(inputValue())"
      (keyup)="inputValue.set(txtSearch.value)"
+     [value]="inputValue()"
      />
     <button 
     class="btn btn-primary"

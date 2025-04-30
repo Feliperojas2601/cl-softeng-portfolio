@@ -1,4 +1,4 @@
-import { Component, effect, input, output, signal } from '@angular/core';
+import { Component, effect, input, linkedSignal, output } from '@angular/core';
 
 @Component({
   selector: 'app-search-input',
@@ -6,11 +6,14 @@ import { Component, effect, input, output, signal } from '@angular/core';
   templateUrl: './searchInput.component.html',
 })
 export class SearchInputComponent {
+    // Valor inicial del input 
+    initialValue = input<string>('');
+    
     placeholder = input.required<string>();
     searchOutput = output<string>();
 
-    // señal con lo último escrito 
-    inputValue = signal('');
+    // señal con lo último escrito en el input, se inicia como una linkedSignal para que pueda tener un valor inicial de algo computado (mi señal que mira el term en la ruta)
+    inputValue = linkedSignal(() => this.initialValue());
 
     // efecto que se ejecuta cuando cambia el valor de la señal inputValue
     debounceEffect = effect((onCleanup) => {

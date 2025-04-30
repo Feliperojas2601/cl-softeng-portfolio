@@ -1,4 +1,4 @@
-<app-search-input placeholder="country" (searchOutput)="term.set($event)"></app-search-input> 
+<app-search-input placeholder="country" (searchOutput)="term.set($event)" [initialValue]="term()"></app-search-input> 
 <country-list [countries]="countryByCountryResource.value()!"
     [errorMessage]="countryByCountryResource.error()"
     [isLoading]="countryByCountryResource.isLoading()"

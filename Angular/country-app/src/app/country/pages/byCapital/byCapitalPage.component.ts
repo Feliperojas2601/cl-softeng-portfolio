@@ -1,9 +1,10 @@
-import { Component, inject, signal, resource } from '@angular/core';
+import { Component, inject, linkedSignal } from '@angular/core';
 import { SearchInputComponent } from '../../../shared/components/searchInput/searchInput.component';
 import { CountryListComponent } from '../../components/countryList/countryList.component';
 import { CountryService } from '../../services/country.service';
-import { firstValueFrom, of } from 'rxjs';
+import { of } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router  } from '@angular/router';
 @Component({
   selector: 'app-by-capital-page',
   imports: [SearchInputComponent, CountryListComponent],
@@ -59,15 +60,23 @@ export class ByCapitalPageComponent {
     });
     */ 
 
+    // Inyección de ruta active
+    activatedRoute = inject(ActivatedRoute);
+    router = inject(Router);
+    // Solo queremos leerlo una vez entonces usamos snapshot, sino usemos un suscribe
+    termParam = this.activatedRoute.snapshot.queryParamMap.get('term') ?? '';
+
     // Manejo con rxResouces -> Estos sí trabajan con el observable
-    public term = signal('');
+    public term = linkedSignal(() => this.termParam); // Inicializamos la señal con el valor del queryParam
 
     public countryByCapitalResource = rxResource({
         request: () => ({ term: this.term() }),
         loader: ({ request }) => {
             // Devolvemos un observable de un array vacío si no hay término
             if (!request.term) return of([]); 
+            // Navegación con el router para mantener el queryParam term en la url
+            this.router.navigate(['/country/by-capital'], { queryParams: { term: request.term } });
             return this.countryService.searchByCapital(request.term);
         }
-    });   
+    });
 }

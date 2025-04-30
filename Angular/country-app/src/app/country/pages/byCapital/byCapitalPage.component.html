@@ -1,7 +1,7 @@
 <!-- Manejo con emición de evento ligado a la función searchByCapital -->
 <!-- <app-search-input placeholder="capital" (searchOutput)="searchByCapital($event)"></app-search-input>  -->
 <!-- Manejo con signal query ligada a un resource -->
-<app-search-input placeholder="capital" (searchOutput)="term.set($event)"></app-search-input> 
+<app-search-input placeholder="capital" (searchOutput)="term.set($event)" [initialValue]="term()"></app-search-input> 
 <!-- Manejo de tabla con signals para el resultado, el loading y el error -->
 <!-- @if (isLoading()) {
     <div class="flex justify-center items-center h-screen">
