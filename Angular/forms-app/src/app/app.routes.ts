@@ -6,7 +6,7 @@ export const routes: Routes = [
         loadChildren: () => import('./reactive/reactive.routes').then(m => m.ReactiveRoutes)
     },
     {
-        path: 'countries',
+        path: 'country',
         loadChildren: () => import('./country/country.routes').then(m => m.CountryRoutes)
     },
     {
