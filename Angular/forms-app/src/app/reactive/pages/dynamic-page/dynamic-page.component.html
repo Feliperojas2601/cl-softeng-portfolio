@@ -1,7 +1,7 @@
 <h2>Reactivos: <small> Dinámicos </small></h2>
 <hr>
 
-<form autocomplete="off" [formGroup]="myForm">
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="save()">
 
     <!-- Nombre -->
     <div class="mb-3 row">
@@ -25,11 +25,16 @@
 
             <div class="input-group">
                 <input class="form-control"
-                       placeholder="Add favorite">
+                       placeholder="Add favorite"
+                       [formControl]="newFavoriteGame"
+                       (keydown.enter)="addGame()"
+                >
 
 
                 <button class="btn btn-outline-primary"
-                        type="button">
+                        type="button"
+                        (click)="addGame()"
+                >
                     Add favorite
                 </button>
             </div>
@@ -52,7 +57,9 @@
                                [formControlName]="i">
 
                         <button class="btn btn-outline-danger"
-                                type="button">
+                                type="button"
+                                (click)="deleteGame(i)"
+                        >
                             Delete
                         </button>
                     </div>
@@ -63,18 +70,19 @@
                     }
                 </div>
             }
-
+            @if (formUtils.isInvalidField(myForm, 'favoriteGames')) {
+                <span class="form-text text-danger">
+                    Must have at least 3 favorite games
+                </span>
+            }
         </div>
     </div>
-
-
 
     <div class="row">
         <div class="col-sm-12">
             <button type="submit"
                     class="btn btn-primary float-end"
-                    >
-                    <!-- [disabled]="myForm.invalid" -->
+            >
                 Guardar
             </button>
         </div>
@@ -93,6 +101,5 @@
 <pre>{{ myForm.value | json }}</pre>
 <br>
 
-<span>Agregar Juego</span>
-<pre>{{ 'object' | json }}</pre>
-<pre>{{ 'object' | json }}</pre>
+<span>Errors</span>
+<pre>{{ myForm.errors | json }}</pre>
