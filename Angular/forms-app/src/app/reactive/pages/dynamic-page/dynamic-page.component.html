@@ -28,6 +28,8 @@
                        placeholder="Add favorite"
                        [formControl]="newFavoriteGame"
                        (keydown.enter)="addGame()"
+                       (keydown.enter)="$event.preventDefault()"
+
                 >
 
 

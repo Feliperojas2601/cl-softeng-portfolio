@@ -2,7 +2,7 @@
 <hr>
 
 
-<form autocomplete="off">
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="save()">
 
     <!-- Radio -->
     <div class="row mb-3">
@@ -13,9 +13,10 @@
                 <input class="form-check-input"
                        type="radio"
                        value="M"
-                       id="radioMasculino">
-                <label class="form-check-label" for="radioMasculino">
-                  Masculino
+                       id="maleRadio"
+                       formControlName="gender">
+                <label class="form-check-label" for="maleRadio">
+                  Male
                 </label>
             </div>
 
@@ -23,26 +24,42 @@
                 <input class="form-check-input"
                        type="radio"
                        value="F"
-                       id="radioFemenino">
-                <label class="form-check-label" for="radioFemenino">
-                  Femenino
+                       id="femaleRadio"
+                       formControlName="gender">
+                <label class="form-check-label" for="femaleRadio">
+                  Female
                 </label>
             </div>
+
+            @if (formUtils.isInvalidField(myForm, 'gender')) {
+                <span class="form-text text-danger">
+                    {{ formUtils.getFieldError(myForm, 'gender') }}
+                </span>
+            }
 
         </div>
     </div>
 
     <!-- Switches -->
     <div class="row mb-3">
-        <label class="col-sm-3 col-form-label">Notificaciones</label>
+        <label class="col-sm-3 col-form-label">Notifications</label>
         <div class="col-sm-9">
 
             <div class="form-check form-switch mt-2">
                 <input class="form-check-input"
                        type="checkbox"
-                       id="flexSwitchCheckChecked">
-                <label class="form-check-label" for="flexSwitchCheckChecked">Quiero recibir notificaciones</label>
+                       id="flexSwitchCheckChecked"
+                       formControlName="notifications">
+                <label class="form-check-label" for="flexSwitchCheckChecked">
+                  I want to receive notifications
+                </label>
             </div>
+
+            @if (formUtils.isInvalidField(myForm, 'notifications')) {
+                <span class="form-text text-danger">
+                    {{ formUtils.getFieldError(myForm, 'notifications') }}
+                </span>
+            }
 
         </div>
     </div>
@@ -54,14 +71,17 @@
             <div class="form-check">
                 <input class="form-check-input"
                        type="checkbox"
-                       id="flexCheckDefault">
+                       id="flexCheckDefault"
+                       formControlName="termsAndConditions">
                 <label class="form-check-label" for="flexCheckDefault">
-                  Términos y condiciones de uso
+                  Terms and conditions of use
                 </label>
               </div>
-              <span class="form-text text-danger">
-                 Debe de aceptar las condiciones de uso
-              </span>
+              @if (formUtils.isInvalidField(myForm, 'termsAndConditions')) {
+                <span class="form-text text-danger">
+                    You must accept the terms and conditions of use
+                </span>
+              }
 
         </div>
     </div>
@@ -81,15 +101,22 @@
 
 
 <h5>Valor del formulario</h5>
-<pre>{{ 'object' | json }}</pre>
+<pre>{{ myForm.value | json }}</pre>
 <br>
 
 <h5>Persona</h5>
-<pre>{{ 'object' | json }}</pre>
+<pre>{{ myForm.controls['gender'].value | json }}</pre>
 <br>
 
 <h5>Valid</h5>
-<pre>{{ 'object' | json }}</pre>
+<pre>{{ myForm.valid | json }}</pre>
+
+<h5>Errors</h5>
+<pre>{{ myForm.errors | json }}</pre>
+<pre>{{ myForm.controls['termsAndConditions'].errors | json }}</pre>
+<pre>{{ myForm.controls['gender'].errors | json }}</pre>
+<pre>{{ myForm.controls['notifications'].errors | json }}</pre>
+
 
 <!-- <h5>Términos</h5> -->
 <!-- <pre>{{ myForm.controls?.terminos?.errors | json }}</pre> -->
