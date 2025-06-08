@@ -88,6 +88,11 @@
                             {{ formUtils.getFieldError(myForm, 'password2') }}
                         </span>
                     }
+                    @if (myForm.errors?.['passwordsNotEqual']) {
+                        <span class="form-text text-danger">
+                            Passwords are not equal
+                        </span>
+                    }
                 </div>
             </div>
 
