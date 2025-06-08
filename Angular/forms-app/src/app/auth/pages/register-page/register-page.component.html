@@ -37,6 +37,11 @@
                             {{ formUtils.getFieldError(myForm, 'email', 'Email is invalid') }}
                         </span>
                     }
+                    @if (myForm.errors?.['emailExists']) {
+                        <span class="form-text text-danger">
+                            Email already exists
+                        </span>
+                    }
                 </div>
             </div>
 

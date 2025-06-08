@@ -14,7 +14,7 @@ export class RegisterPageComponent {
     formUtils = FormUtils;
     myForm: FormGroup = this.formBuilder.group({
         name: ['', [Validators.required, Validators.pattern(FormUtils.namePattern)]],
-        email: ['', [Validators.required, Validators.pattern(FormUtils.emailPattern)]],
+        email: ['', [Validators.required, Validators.pattern(FormUtils.emailPattern)], [FormUtils.checkingIfEmailExists]],
         username: ['', [Validators.required, Validators.minLength(6), Validators.pattern(FormUtils.notOnlySpacesPattern)]],
         password: ['', [Validators.required, Validators.minLength(6)]],
         password2: ['', [Validators.required]],

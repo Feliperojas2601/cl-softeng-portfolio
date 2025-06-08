@@ -1,5 +1,9 @@
 import { AbstractControl, FormArray, FormGroup, ValidationErrors } from '@angular/forms';
 
+async function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export class FormUtils {
     static readonly namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
     static readonly emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
@@ -41,6 +45,8 @@ export class FormUtils {
                     return `This field must be greater or equal than ${errors['min'].min}`;
                 case 'pattern':
                     return patternMessage ?? 'This field is invalid';
+                case 'emailExists':
+                    return 'Email already exists';
                 default:
                     return 'Not handled error';
             }
@@ -54,5 +60,10 @@ export class FormUtils {
             const field2Value = form.get(field2)?.value;
             return field1Value === field2Value ? null : { passwordsNotEqual: true };
         }
+    }
+
+    static async checkingIfEmailExists(control: AbstractControl): Promise<ValidationErrors | null> {
+        await sleep(1000);
+        return control.value === 'test@test.com' ? { emailExists: true } : null;
     }
 }
