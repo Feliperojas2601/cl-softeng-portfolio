@@ -47,6 +47,8 @@ export class FormUtils {
                     return patternMessage ?? 'This field is invalid';
                 case 'emailExists':
                     return 'Email already exists';
+                case 'usernameIsOffensive':
+                    return 'Username is offensive';
                 default:
                     return 'Not handled error';
             }
@@ -65,5 +67,9 @@ export class FormUtils {
     static async checkingIfEmailExists(control: AbstractControl): Promise<ValidationErrors | null> {
         await sleep(1000);
         return control.value === 'test@test.com' ? { emailExists: true } : null;
+    }
+
+    static checkingUsernameIsNotOffensive(control: AbstractControl): ValidationErrors | null {
+        return control.value === 'offensive' ? { usernameIsOffensive: true } : null;
     }
 }
