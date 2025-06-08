@@ -1,8 +1,9 @@
 import { afterNextRender, afterRender, ChangeDetectionStrategy, Component, effect, signal, SimpleChanges } from '@angular/core';
+import { TitleComponent } from '../../components/title/title.component';
 
 @Component({
   selector: 'app-home-page',
-  imports: [],
+  imports: [TitleComponent],
   templateUrl: './home-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -22,6 +23,15 @@ export class HomePageComponent { // implements OnInit, ..., qué diferencia hay?
     constructor() {
         // Construcción del componente si me voy a otra ruta, se ejecuta el constructor de nuevo pues se destruye y se vuelve a crear
         console.log('HomePageComponent constructor');
+        /*setTimeout(() => {
+            // Esto con el zonelessChangeDetection no se ejecuta
+            this.traditionalProperty = 'Adios';
+        }, 3000);
+
+        setTimeout(() => {
+            // Esto con el zonelessChangeDetection se ejecuta
+            this.signalProperty.set('Adios');
+        }, 4000);*/
     }
 
     ngOnInit() {
@@ -82,5 +92,10 @@ export class HomePageComponent { // implements OnInit, ..., qué diferencia hay?
     ngOnChanges(changes: SimpleChanges) {
         // Se ejecuta cuando el componente cambia sus inputs, inputs del component no inputs formularios
         console.log('HomePageComponent ngOnChanges', changes);
+        for (const inputName in changes) {
+            console.log(`previos ${inputName} - ${changes[inputName].previousValue}`);
+            console.log(`current ${inputName} - ${changes[inputName].currentValue}`);
+            console.log(`isFirstChange ${changes[inputName].isFirstChange()}`);
+        }
     }
 }
