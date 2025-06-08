@@ -1,2 +1,8 @@
 <h1>Home Page</h1>
 <hr>
+
+<h3>Traditional property: {{ traditionalProperty }}</h3>
+<h3>Signal property: {{ signalProperty() }}</h3>
+
+<button (click)="changeTraditionalProperty()">Change traditional property</button>
+<button (click)="changeSignalProperty()">Change signal property</button>
