@@ -3,7 +3,7 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CountryService } from '../../services/country.service';
 import { Country } from '../../interfaces/country.interface';
-import { switchMap, tap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-country-page',
@@ -25,8 +25,10 @@ export class CountryPageComponent {
     // Cuando cambie la region, se actualiza el formulario, se monta apenas se renderiza el componente
     onFormChange = effect((onCleanup) => {
         const regionSubscription = this.onRegionChanged();
+        const countrySubscription = this.onCountryChanged();
         onCleanup(() => {
             regionSubscription.unsubscribe();
+            countrySubscription.unsubscribe();
         });
     });
 
@@ -36,7 +38,7 @@ export class CountryPageComponent {
             .get('region')!
             .valueChanges
             .pipe(
-                tap((region) => {
+                tap(() => {
                     // Resetear el formulario
                     this.myForm.get('country')!.setValue('');
                     this.countries.set([]);
@@ -49,6 +51,25 @@ export class CountryPageComponent {
             .subscribe(countries => {
                 console.log('countries', countries);
                 this.countries.set(countries);
+            });
+    }
+
+    onCountryChanged() {
+        return this.myForm
+            .get('country')!
+            .valueChanges
+            .pipe(
+                tap(() => {
+                    this.myForm.get('border')!.setValue('');
+                    this.borders.set([]);
+                }),
+                // si el pais es '' entonces no siga 
+                filter((country) => country !== ''),
+                switchMap((country) => this.countryService.getCountryByAlphaCode(country!)),
+                switchMap((country) => this.countryService.getCountryNamesByBorderCodes(country.borders)),
+            )
+            .subscribe(countries => {
+                this.borders.set(countries.map(c => c.name.common));
             });
     }
 }
